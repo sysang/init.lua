@@ -25,26 +25,51 @@ vim.g.maplocalleader = "\\"
 require("lazy").setup({
   spec = {
     -- import your plugins
+
+	{"nvim-treesitter/nvim-treesitter", branch = 'master', lazy = false, build = ":TSUpdate"},
     { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
     {
-  "nvim-tree/nvim-tree.lua",
-  version = "*",
-  lazy = false,
-  dependencies = {
-    "nvim-tree/nvim-web-devicons",
-  },
-  config = function()
-    require("nvim-tree").setup {}
-  end,
-},
-{
-  "ibhagwan/fzf-lua",
-  -- optional for icon support
-  dependencies = { "nvim-tree/nvim-web-devicons" },
-  -- or if using mini.icons/mini.nvim
-  -- dependencies = { "nvim-mini/mini.icons" },
-  opts = {}
-}
+	"nvim-tree/nvim-tree.lua",
+        version = "*",
+        lazy = false,
+        dependencies = {
+          "nvim-tree/nvim-web-devicons",
+        },
+	config = function()
+		require("nvim-tree").setup {}
+        end,
+    },
+    {
+	"ibhagwan/fzf-lua",
+	-- optional for icon support
+	dependencies = { "nvim-tree/nvim-web-devicons" },
+	-- or if using mini.icons/mini.nvim
+	-- dependencies = { "nvim-mini/mini.icons" },
+	opts = {
+		winopts = {
+			preview = {
+				hidden = true,
+			}
+		}
+	}
+    },
+    {
+	"kylechui/nvim-surround",
+	version = "^3.0.0", -- Use for stability; omit to use `main` branch for the latest features
+	event = "VeryLazy",
+	config = function()
+		require("nvim-surround").setup({
+		    -- Configuration here, or leave empty to use defaults
+		})
+	end
+    },
+    {
+       'windwp/nvim-autopairs',
+       event = "InsertEnter",
+       config = true
+       -- use opts = {} for passing setup options
+       -- this is equivalent to setup({}) function
+    }
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
